@@ -1,4 +1,4 @@
-
+use migratrix_db;
 CREATE TABLE `organizations_j_a` (
   `Id` varchar(36) NOT NULL,
   `Name` varchar(200) NOT NULL,
