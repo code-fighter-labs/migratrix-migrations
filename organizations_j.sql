@@ -15,5 +15,5 @@ CREATE TABLE `organizations_j` (
   `DeletedAt` datetime DEFAULT NULL,
   `IsActive` tinyint(1) NOT NULL DEFAULT '1',
   `BillingEmail` varchar(200) DEFAULT NULL COMMENT 'Primary email for billing notifications and invoices',
-  PRIMARY KEY (`Id`),
+  PRIMARY KEY (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
