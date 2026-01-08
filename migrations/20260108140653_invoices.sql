@@ -1,0 +1,26 @@
+-- UP
+CREATE TABLE `invoices` (
+  `Id` bigint NOT NULL AUTO_INCREMENT,
+  `BillingAccountId` bigint NOT NULL,
+  `OrganizationId` varchar(36) NOT NULL,
+  `ExternalInvoiceId` varchar(64) NOT NULL COMMENT 'Stripe invoice ID',
+  `ExternalInvoiceNumber` varchar(100) DEFAULT NULL COMMENT 'Human-readable invoice number',
+  `Status` varchar(50) NOT NULL COMMENT 'draft, open, paid, void, uncollectible',
+  `AmountDue` int NOT NULL COMMENT 'Amount in cents',
+  `AmountPaid` int NOT NULL DEFAULT '0' COMMENT 'Amount paid in cents',
+  `Currency` char(3) NOT NULL DEFAULT 'usd',
+  `PeriodStart` datetime NOT NULL,
+  `PeriodEnd` datetime NOT NULL,
+  `InvoiceDate` datetime NOT NULL,
+  `DueDate` datetime DEFAULT NULL,
+  `PaidAt` datetime DEFAULT NULL,
+  `InvoicePdfUrl` varchar(500) DEFAULT NULL,
+  `CreatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `UpdatedAt` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`Id`),
+  UNIQUE KEY `UQ_invoice_external` (`ExternalInvoiceId`),
+  KEY `IDX_invoices_billing` (`BillingAccountId`,`InvoiceDate` DESC),
+  KEY `IDX_invoices_org` (`OrganizationId`,`InvoiceDate` DESC),
+  KEY `IDX_invoices_status` (`Status`,`DueDate`),
+  CONSTRAINT `FK_invoices_billing_account` FOREIGN KEY (`BillingAccountId`) REFERENCES `billing_accounts` (`Id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='Historical record of all invoices'
