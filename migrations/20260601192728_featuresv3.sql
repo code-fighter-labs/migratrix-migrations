@@ -1,0 +1,22 @@
+-- UP
+Use northwind;
+CREATE TABLE `featuresv2` (
+  `Id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `GroupId` bigint unsigned NOT NULL,
+  `Code` varchar(80) NOT NULL,
+  `Name` varchar(150) NOT NULL,
+  `Description` text,
+  `SortOrder` int NOT NULL DEFAULT '0',
+  `IsDeprecated` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`Id`)
+
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+-- DOWN
+-- ⚠️  CRITICAL: Review this script carefully before execution!
+
+USE northwind;
+
+
+-- Rollback for CREATE TABLE `featuresv2`
+DROP TABLE IF EXISTS `featuresv2`;
